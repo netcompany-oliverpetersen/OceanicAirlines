@@ -1,5 +1,6 @@
 using OceanicAirlines.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +16,12 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
            .AllowAnyMethod()
            .AllowAnyHeader();
 }));
-
 builder.Services.AddDbContext<DbOaDk1Context>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer();
+});
+
 
 var app = builder.Build();
 
