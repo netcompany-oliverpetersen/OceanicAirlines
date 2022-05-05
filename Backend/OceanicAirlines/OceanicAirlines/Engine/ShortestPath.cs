@@ -1,4 +1,6 @@
-﻿namespace OceanicAirlines.Engine
+﻿using OceanicAirlines.APIModels;
+
+namespace OceanicAirlines.Engine
 {
     public class ShortestPath
     {
@@ -9,9 +11,10 @@
 		// algorithm for a graph represented
 		// using adjacency matrix
 		// representation
-		public void compute(int[,] adjacencyMatrix,
+		public ListElement Compute(int[,] adjacencyMatrix,
+											List<string> cities,
 											int startVertex,
-											List<string> cities)
+											int stopVertex)
 		{
 			int nVertices = adjacencyMatrix.GetLength(0);
 
@@ -96,6 +99,11 @@
 			}
 
 			printSolution(startVertex, shortestDistances, parents, cities);
+
+			string pathString = "";
+			savePath(stopVertex, parents, cities, ref pathString);
+			pathString = pathString.Remove(pathString.Length - 2, 2);
+			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], 99, pathString);
 		}
 
 		// A utility function to print
@@ -142,6 +150,21 @@
 			}
 			printPath(parents[currentVertex], parents, cities);
 			Console.Write(cities[currentVertex] + " ");
+		}
+
+		private static void savePath(int currentVertex,
+							int[] parents,
+							List<string> cities, ref string output)
+		{
+
+			// Base case : Source node has
+			// been processed
+			if (currentVertex == NO_PARENT)
+			{
+				return;
+			}
+			savePath(parents[currentVertex], parents, cities, ref output);
+			output = output + (cities[currentVertex] + ", ");
 		}
 	}
 }
