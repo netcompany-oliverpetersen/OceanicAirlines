@@ -13,9 +13,8 @@ namespace OceanicAirlines.Controllers
     {
         private readonly ILogger<RoutesController> _logger;
 
-        public RoutesController(ILogger<RoutesController> logger)
+        public RoutesController()
         {
-            _logger = logger;
         }
 
         [HttpPost(Name = "PostRoutes")]
