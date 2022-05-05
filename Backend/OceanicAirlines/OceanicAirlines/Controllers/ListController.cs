@@ -30,10 +30,10 @@ namespace OceanicAirlines.Controllers
             string EndCity = req.Destination;
 
             // find fastest path	
-            (int[,] fastMatrix, List<string> fastCities) = DataAggregator.Aggregate(true, false);
+            (int[,] fastTimeMatrix, int[,] fastPriceMatrix, List<string> fastCities) = DataAggregator.Aggregate(false);
             int fastSource = fastCities.IndexOf(StartCity);
             int fastSink = fastCities.IndexOf(EndCity);
-            ListElement shortestElem = ShortestPath.Compute(fastMatrix, fastCities, fastSource, fastSink);
+            ListElement shortestElem = ShortestPath.Compute(fastTimeMatrix, fastPriceMatrix, fastCities, fastSource, fastSink);
 
             //// find cheapest path
             //(int[,] cheapMatrix, List<string> cheapCities) = DataAggregator.Aggregate(false, false);

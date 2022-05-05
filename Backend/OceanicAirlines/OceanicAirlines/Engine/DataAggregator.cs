@@ -29,7 +29,7 @@ namespace OceanicAirlines.Engine
 
 		}
 
-		public Tuple<int[,], List<string>> Aggregate(bool ForTime, bool Scramble)
+		public Tuple<int[,], int[,], List<string>> Aggregate(bool Scramble)
 		{
 			List<ApiRoute> routeArray = getRoutes();
 
@@ -39,20 +39,24 @@ namespace OceanicAirlines.Engine
 
 			// make adjacency table with NxN entries
 			int n = cities.Count();
-			int[,] adjTable = new int[n, n];
+			int[,] timeTable = new int[n, n];
+			int[,] priceTable = new int[n, n];
 
 			// fill out the adjacency table 
-			fillTable(adjTable, routeArray, cities, ForTime);
-			Print2DArray(adjTable);
+			fillTable(timeTable, routeArray, cities, true);
+			fillTable(priceTable, routeArray, cities, false);
+			Print2DArray(timeTable);
+			Console.WriteLine("\n");
+			Print2DArray(priceTable);
 
 			if (Scramble)
             {
-				ScrambleTable(adjTable);
+				ScrambleTable(timeTable);
 				Console.Write("\n");
-				Print2DArray(adjTable);
+				Print2DArray(timeTable);
 			}
 
-			return Tuple.Create(adjTable, cities);
+			return Tuple.Create(timeTable, priceTable, cities);
 		}
 
 		List<string> UniqueDestinations(List<ApiRoute> routeArray)

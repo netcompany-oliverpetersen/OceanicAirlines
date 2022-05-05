@@ -11,12 +11,14 @@ namespace OceanicAirlines.Engine
 		// algorithm for a graph represented
 		// using adjacency matrix
 		// representation
-		public ListElement Compute(int[,] adjacencyMatrix,
+		public ListElement Compute(
+											int[,] TimeMatrix,
+											int[,] PriceMatrix,
 											List<string> cities,
 											int startVertex,
 											int stopVertex)
 		{
-			int nVertices = adjacencyMatrix.GetLength(0);
+			int nVertices = TimeMatrix.GetLength(0);
 
 			// shortestDistances[i] will hold the
 			// shortest distance from src to i
@@ -85,7 +87,7 @@ namespace OceanicAirlines.Engine
 						vertexIndex < nVertices;
 						vertexIndex++)
 				{
-					int edgeDistance = adjacencyMatrix[nearestVertex, vertexIndex];
+					int edgeDistance = TimeMatrix[nearestVertex, vertexIndex];
 
 					if (edgeDistance > 0
 						&& ((shortestDistance + edgeDistance) <
@@ -100,10 +102,10 @@ namespace OceanicAirlines.Engine
 
 			printSolution(startVertex, shortestDistances, parents, cities);
 
-			string pathString = "";
-			savePath(stopVertex, parents, cities, ref pathString);
-			pathString = pathString.Remove(pathString.Length - 2, 2);
-			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], 99, pathString);
+			List<string> pathString = new List<string>();
+			savePath(stopVertex, parents, cities, pathString);
+			(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix);
+			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], 99, string.Join(", ", pathString.ToArray()));
 		}
 
 		// A utility function to print
@@ -154,7 +156,7 @@ namespace OceanicAirlines.Engine
 
 		private static void savePath(int currentVertex,
 							int[] parents,
-							List<string> cities, ref string output)
+							List<string> cities, List<string> output)
 		{
 
 			// Base case : Source node has
@@ -163,8 +165,15 @@ namespace OceanicAirlines.Engine
 			{
 				return;
 			}
-			savePath(parents[currentVertex], parents, cities, ref output);
-			output = output + (cities[currentVertex] + ", ");
+			savePath(parents[currentVertex], parents, cities, output);
+			output.Add(cities[currentVertex]);
+		}
+
+		private Tuple<int, int> calculateTimeAndPrice(string[] pathString,
+			int[,] TimeMatrix,
+			int[,] PriceMatrix)
+		{
+			return Tuple.Create(5, 8);
 		}
 	}
 }
