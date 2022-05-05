@@ -6,13 +6,6 @@ namespace OceanicAirlines.APIModels
     {
         public ApiRoute()
         { }
-            public ApiRoute(Models.Route model)
-        {
-            this.Source = model.StartPos.CityName;
-            this.Destination = model.EndPos.CityName;
-            this.Price = 20;
-            this.Time = (int)model.DistanceInHours;
-        }
         public ApiRoute(string Start, string End, int Time, int Price)
         {
             this.Source = Start;

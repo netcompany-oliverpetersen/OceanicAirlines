@@ -12,7 +12,7 @@ namespace OceanicAirlines.Controllers
     public class CityController
     {
         [HttpGet(Name = "GetCities")]
-        public async Task<IEnumerable<City>> Get()
+        public IEnumerable<City> Get()
         {
             List<City> cities = new List<City>();
             using (var context = new DbOaDk1Context())
