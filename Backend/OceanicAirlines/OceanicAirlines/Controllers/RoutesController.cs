@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OceanicAirlines.APIModels;
+using System.Collections;
 
 namespace OceanicAirlines.Controllers
 {
@@ -14,16 +16,20 @@ namespace OceanicAirlines.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetRoutes")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost(Name = "PostRoutes")]
+        public IEnumerable<ApiRoute> Post()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new ApiRoute(new Models.Route
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
+                Start = "Slavekysten",
+                End = "Cairo",
+                Price = (int)Random.Shared.NextInt64(),
+                Time = (int)Random.Shared.NextInt64()
+            }))
             .ToArray();
         }
+
+
     }
+
 }
