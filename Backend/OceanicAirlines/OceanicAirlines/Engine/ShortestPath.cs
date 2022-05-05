@@ -1,4 +1,6 @@
-﻿namespace OceanicAirlines.Engine
+﻿using OceanicAirlines.APIModels;
+
+namespace OceanicAirlines.Engine
 {
     public class ShortestPath
     {
@@ -9,11 +11,14 @@
 		// algorithm for a graph represented
 		// using adjacency matrix
 		// representation
-		public void compute(int[,] adjacencyMatrix,
+		public ListElement Compute(
+											int[,] TimeMatrix,
+											int[,] PriceMatrix,
+											List<string> cities,
 											int startVertex,
-											List<string> cities)
+											int stopVertex)
 		{
-			int nVertices = adjacencyMatrix.GetLength(0);
+			int nVertices = TimeMatrix.GetLength(0);
 
 			// shortestDistances[i] will hold the
 			// shortest distance from src to i
@@ -82,7 +87,7 @@
 						vertexIndex < nVertices;
 						vertexIndex++)
 				{
-					int edgeDistance = adjacencyMatrix[nearestVertex, vertexIndex];
+					int edgeDistance = TimeMatrix[nearestVertex, vertexIndex];
 
 					if (edgeDistance > 0
 						&& ((shortestDistance + edgeDistance) <
@@ -96,6 +101,11 @@
 			}
 
 			printSolution(startVertex, shortestDistances, parents, cities);
+
+			List<string> pathString = new List<string>();
+			savePath(stopVertex, parents, cities, pathString);
+			(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix);
+			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], 99, string.Join(", ", pathString.ToArray()));
 		}
 
 		// A utility function to print
@@ -142,6 +152,28 @@
 			}
 			printPath(parents[currentVertex], parents, cities);
 			Console.Write(cities[currentVertex] + " ");
+		}
+
+		private static void savePath(int currentVertex,
+							int[] parents,
+							List<string> cities, List<string> output)
+		{
+
+			// Base case : Source node has
+			// been processed
+			if (currentVertex == NO_PARENT)
+			{
+				return;
+			}
+			savePath(parents[currentVertex], parents, cities, output);
+			output.Add(cities[currentVertex]);
+		}
+
+		private Tuple<int, int> calculateTimeAndPrice(List<string> pathString,
+			int[,] TimeMatrix,
+			int[,] PriceMatrix)
+		{
+			return Tuple.Create(5, 8);
 		}
 	}
 }
