@@ -1,0 +1,12 @@
+﻿CREATE TABLE [DATA].[PARCEL]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL, 
+    [WeightInKg] DECIMAL(10, 2) NULL, 
+    [HeightInCm] DECIMAL(10, 2) NULL, 
+    [WidthInCm] DECIMAL(10, 2) NULL, 
+    [LengthInCm] DECIMAL(10, 2) NULL, 
+    [Price] DECIMAL(17, 2) NULL, 
+    [Currency] VARCHAR(3) NULL DEFAULT 'USD' 
+
+CONSTRAINT [PK_PARCEL] PRIMARY KEY (Id)
+)
