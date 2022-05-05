@@ -1,0 +1,71 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "DbOaDk1Context",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Services",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "OceanicAirlines",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[DATA].[BOOKING]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[BOOKINGLINE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[CITY]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[CUSTOMER]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[PARCEL]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[ROUTE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[TRANSPORTTYPE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[TYPE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[USER]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "dbs-oa-dk1.db-oa-dk1.dbo",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

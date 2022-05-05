@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using OceanicAirlines.Engine;
+using OceanicAirlines.Services;
+using OceanicAirlines.Models;
+using System.Collections;
 
 namespace OceanicAirlines.Controllers
 {
@@ -16,12 +18,17 @@ namespace OceanicAirlines.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public string Get()
+        public IEnumerable<City> Get()
         {
-            DataAggregator DataAggregator = new DataAggregator();
-            DataAggregator.Aggregate(true, false);
 
-            return "Hello from the DataAggregator";
+            List<City> cities = new List<City>();
+            using (var context = new DbOaDk1Context())
+            {
+                 cities = context.City.ToList();
+                
+            }
+
+            return cities;
         }
     }
 }

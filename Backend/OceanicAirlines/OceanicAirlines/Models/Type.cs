@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 namespace OceanicAirlines.Models
 {
-    public partial class Route
+    public partial class Type
     {
         public int Id { get; set; }
-        public string StartPosId { get; set; }
-        public string EndPosId { get; set; }
-        public decimal? DistanceInHours { get; set; }
-        public bool? Active { get; set; }
+        public string Type1 { get; set; }
+        public decimal? Factor { get; set; }
+        public bool Active { get; set; }
     }
 }
