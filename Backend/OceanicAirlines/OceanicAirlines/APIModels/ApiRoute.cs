@@ -2,7 +2,9 @@
 {
     public class ApiRoute
     {
-        public ApiRoute(Models.Route model)
+        public ApiRoute()
+        { }
+            public ApiRoute(Models.Route model)
         {
             this.Source = model.Start;
             this.Destination = model.End;

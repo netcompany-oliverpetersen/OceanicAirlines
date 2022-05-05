@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OceanicAirlines.APIModels;
+using OceanicAirlines.Services;
 using System.Collections;
 
 namespace OceanicAirlines.Controllers
@@ -30,6 +31,13 @@ namespace OceanicAirlines.Controllers
             .ToArray();
         }
 
+        [HttpGet(Name ="GetRoute")]
+        public async Task<IEnumerable<ApiRoute>> Get()
+        {
+            TelstarService ts = new TelstarService();
+            return await ts.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
+
+        }
 
     }
 
