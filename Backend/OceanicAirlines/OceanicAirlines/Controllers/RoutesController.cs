@@ -4,6 +4,7 @@ using OceanicAirlines.APIModels;
 using OceanicAirlines.Services;
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
+using OceanicAirlines.Models;
 
 namespace OceanicAirlines.Controllers
 {
@@ -19,15 +20,19 @@ namespace OceanicAirlines.Controllers
         public async Task<IEnumerable<ApiRoute>> Post([FromBody]APIRouteRequest req)
         {
             List<ApiRoute> returnRoutes = new List<ApiRoute>();
-            List<Models.Route> routes = new List<Models.Route>();
+            List<GetRoutePriceTableResult> results = new List<GetRoutePriceTableResult>();
+
             using (var context = new DbOaDk1Context())
             {
-                routes = context.Route.Include(route => route.EndPos).ToList();
+                var procedures = context.GetProcedures();
+                results = await procedures.GetRoutePriceTableAsync(req.Height, req.Width, req.Length, req.Weight, req.Category, default);
             }
-               foreach (var route in routes)
+
+            foreach(var result in results)
             {
-                returnRoutes.Add(new ApiRoute(route));
+                returnRoutes.Add(new ApiRoute(result));
             }
+
                return returnRoutes; 
         }
 
