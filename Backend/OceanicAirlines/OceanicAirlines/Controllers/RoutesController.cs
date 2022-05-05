@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OceanicAirlines.APIModels;
+using OceanicAirlines.Services;
 using System.Collections;
 
 namespace OceanicAirlines.Controllers
@@ -22,14 +23,20 @@ namespace OceanicAirlines.Controllers
             
             return Enumerable.Range(1, 5).Select(index => new ApiRoute(new Models.Route
             {
-                Start = "Slavekysten",
-                End = "Cairo",
-                Price = (int)Random.Shared.NextInt64(),
-                Time = (int)Random.Shared.NextInt64()
+                StartPosId = "Slavekysten",
+                EndPosId = "Cairo",
+                DistanceInHours = (int)Random.Shared.NextInt64()
             }))
             .ToArray();
         }
 
+        [HttpGet(Name ="GetRoute")]
+        public async Task<IEnumerable<ApiRoute>> Get()
+        {
+            TelstarService ts = new TelstarService();
+            return await ts.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
+
+        }
 
     }
 
