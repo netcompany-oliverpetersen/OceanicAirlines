@@ -169,7 +169,7 @@ namespace OceanicAirlines.Engine
 			output.Add(cities[currentVertex]);
 		}
 
-		private Tuple<int, int> calculateTimeAndPrice(string[] pathString,
+		private Tuple<int, int> calculateTimeAndPrice(List<string> pathString,
 			int[,] TimeMatrix,
 			int[,] PriceMatrix)
 		{
