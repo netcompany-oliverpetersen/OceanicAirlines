@@ -19,7 +19,7 @@ namespace OceanicAirlines.Controllers
         public string Get()
         {
             DataAggregator DataAggregator = new DataAggregator();
-            DataAggregator.DataAggregate();
+            DataAggregator.Aggregate();
 
             return "Hello from the DataAggregator";
         }
