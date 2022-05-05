@@ -17,10 +17,6 @@ namespace OceanicAirlines.Controllers
         {
         }
 
-        public RoutesController()
-        {
-        }
-
         [HttpPost(Name = "PostRoutes")]
         public async Task<IEnumerable<ApiRoute>> Post([FromBody]APIRouteRequest req)
         {
