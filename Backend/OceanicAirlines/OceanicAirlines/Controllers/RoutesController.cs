@@ -11,8 +11,6 @@ namespace OceanicAirlines.Controllers
     [ApiController]
     public class RoutesController : ControllerBase
     {
-        private readonly ILogger<RoutesController> _logger;
-
         public RoutesController()
         {
         }
