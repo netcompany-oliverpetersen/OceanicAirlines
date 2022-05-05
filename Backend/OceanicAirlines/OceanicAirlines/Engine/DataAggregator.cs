@@ -20,9 +20,8 @@ namespace OceanicAirlines.Engine
 
 			//ApiRoute[] myArray = { AB, AC, BD, CD, AE, ED };
 			RoutesController RC = new RoutesController();
-			IEnumerable<ApiRoute> enumerable = RC.Post(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
-			Console.Write("ALL IS GOOD HERE");
-			return enumerable.ToList();
+			Task<IEnumerable<ApiRoute>> task = RC.Post(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
+			return task.Result.ToList();
 
 			//EastIndiaTrading EIT = new EastIndiaTrading();
 			//Task<IEnumerable<ApiRoute>> task = EIT.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
