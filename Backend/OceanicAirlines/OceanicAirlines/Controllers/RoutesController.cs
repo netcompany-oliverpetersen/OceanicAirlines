@@ -30,14 +30,6 @@ namespace OceanicAirlines.Controllers
             }
                return returnRoutes; 
         }
-        //TODO: Remove
-        [HttpGet(Name ="GetRoute")]
-        public async Task<IEnumerable<ApiRoute>> Get()
-        {
-            TelstarService ts = new TelstarService();
-            return await ts.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
-
-        }
 
     }
 

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+builder.Services.AddCors(o => o.AddDefaultPolicy(builder =>
 {
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
