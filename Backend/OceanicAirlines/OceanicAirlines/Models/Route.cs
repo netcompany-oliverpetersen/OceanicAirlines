@@ -8,9 +8,12 @@ namespace OceanicAirlines.Models
     public partial class Route
     {
         public int Id { get; set; }
-        public string StartPosId { get; set; }
-        public string EndPosId { get; set; }
+        public int? StartPosId { get; set; }
+        public int? EndPosId { get; set; }
         public decimal? DistanceInHours { get; set; }
         public bool? Active { get; set; }
+
+        public virtual City EndPos { get; set; }
+        public virtual City StartPos { get; set; }
     }
 }

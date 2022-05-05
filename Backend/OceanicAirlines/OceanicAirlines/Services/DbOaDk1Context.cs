@@ -29,6 +29,14 @@ namespace OceanicAirlines.Services
         public virtual DbSet<Models.Type> Type { get; set; }
         public virtual DbSet<User> User { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=dbs-oa-dk1.database.windows.net;Initial Catalog=db-oa-dk1;User ID=admin-oa-dk1;Password=oceanicFlyAway16");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Booking>(entity =>
@@ -42,6 +50,18 @@ namespace OceanicAirlines.Services
                 entity.Property(e => e.StartPosId).HasColumnName("StartPosID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.EndPos)
+                    .WithMany(p => p.BookingEndPos)
+                    .HasForeignKey(d => d.EndPosId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BOOKING_ENDCITY");
+
+                entity.HasOne(d => d.StartPos)
+                    .WithMany(p => p.BookingStartPos)
+                    .HasForeignKey(d => d.StartPosId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BOOKING_STARTCITY");
             });
 
             modelBuilder.Entity<Bookingline>(entity =>
@@ -73,6 +93,18 @@ namespace OceanicAirlines.Services
                 entity.Property(e => e.TransportId).HasColumnName("TransportID");
 
                 entity.Property(e => e.TypeId).HasColumnName("TypeID");
+
+                entity.HasOne(d => d.EndPos)
+                    .WithMany(p => p.BookinglineEndPos)
+                    .HasForeignKey(d => d.EndPosId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LINE_ENDCITY");
+
+                entity.HasOne(d => d.StartPos)
+                    .WithMany(p => p.BookinglineStartPos)
+                    .HasForeignKey(d => d.StartPosId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LINE_STARTCITY");
             });
 
             modelBuilder.Entity<City>(entity =>
@@ -125,13 +157,19 @@ namespace OceanicAirlines.Services
 
                 entity.Property(e => e.DistanceInHours).HasColumnType("decimal(10, 2)");
 
-                entity.Property(e => e.EndPosId)
-                    .HasMaxLength(9)
-                    .HasColumnName("EndPosID");
+                entity.Property(e => e.EndPosId).HasColumnName("EndPosID");
 
-                entity.Property(e => e.StartPosId)
-                    .HasMaxLength(9)
-                    .HasColumnName("StartPosID");
+                entity.Property(e => e.StartPosId).HasColumnName("StartPosID");
+
+                entity.HasOne(d => d.EndPos)
+                    .WithMany(p => p.RouteEndPos)
+                    .HasForeignKey(d => d.EndPosId)
+                    .HasConstraintName("FK_ENDCITY");
+
+                entity.HasOne(d => d.StartPos)
+                    .WithMany(p => p.RouteStartPos)
+                    .HasForeignKey(d => d.StartPosId)
+                    .HasConstraintName("FK_STARTCITY");
             });
 
             modelBuilder.Entity<Transporttype>(entity =>
@@ -174,6 +212,7 @@ namespace OceanicAirlines.Services
                     .IsUnicode(false);
             });
 
+            OnModelCreatingGeneratedProcedures(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 

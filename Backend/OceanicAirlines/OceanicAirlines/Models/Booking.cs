@@ -13,5 +13,8 @@ namespace OceanicAirlines.Models
         public int CustomerId { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public virtual City EndPos { get; set; }
+        public virtual City StartPos { get; set; }
     }
 }

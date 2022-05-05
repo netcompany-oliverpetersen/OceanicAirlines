@@ -7,7 +7,24 @@ namespace OceanicAirlines.Models
 {
     public partial class City
     {
+        public City()
+        {
+            BookingEndPos = new HashSet<Booking>();
+            BookingStartPos = new HashSet<Booking>();
+            BookinglineEndPos = new HashSet<Bookingline>();
+            BookinglineStartPos = new HashSet<Bookingline>();
+            RouteEndPos = new HashSet<Route>();
+            RouteStartPos = new HashSet<Route>();
+        }
+
         public int Id { get; set; }
         public string CityName { get; set; }
+
+        public virtual ICollection<Booking> BookingEndPos { get; set; }
+        public virtual ICollection<Booking> BookingStartPos { get; set; }
+        public virtual ICollection<Bookingline> BookinglineEndPos { get; set; }
+        public virtual ICollection<Bookingline> BookinglineStartPos { get; set; }
+        public virtual ICollection<Route> RouteEndPos { get; set; }
+        public virtual ICollection<Route> RouteStartPos { get; set; }
     }
 }

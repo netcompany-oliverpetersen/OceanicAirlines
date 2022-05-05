@@ -18,5 +18,8 @@ namespace OceanicAirlines.Models
         public decimal? Price { get; set; }
         public decimal? DistanceInHours { get; set; }
         public string Currency { get; set; }
+
+        public virtual City EndPos { get; set; }
+        public virtual City StartPos { get; set; }
     }
 }
