@@ -8,7 +8,7 @@ namespace OceanicAirlines.Engine
 	{
         public DataAggregator() { }
 
-		public List<ApiRoute> getRoutes()
+		public List<ApiRoute> getRoutes(APIRouteRequest request)
 		{
 
 			//ApiRoute AB = new ApiRoute("A", "B", 1, 10);
@@ -17,10 +17,10 @@ namespace OceanicAirlines.Engine
 			//ApiRoute CD = new ApiRoute("C", "D", 4, 10);
 			//ApiRoute AE = new ApiRoute("A", "E", 2, 7);
 			//ApiRoute ED = new ApiRoute("E", "D", 2, 7);
-
 			//ApiRoute[] myArray = { AB, AC, BD, CD, AE, ED };
+
 			RoutesController RC = new RoutesController();
-			Task<IEnumerable<ApiRoute>> task = RC.Post(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
+			Task<IEnumerable<ApiRoute>> task = RC.Post(request);
 			return task.Result.ToList();
 
 			//EastIndiaTrading EIT = new EastIndiaTrading();
@@ -29,9 +29,9 @@ namespace OceanicAirlines.Engine
 
 		}
 
-		public Tuple<int[,], int[,], List<string>> Aggregate(bool Scramble)
+		public Tuple<int[,], int[,], List<string>> Aggregate(bool Scramble, APIRouteRequest request)
 		{
-			List<ApiRoute> routeArray = getRoutes();
+			List<ApiRoute> routeArray = getRoutes(request);
 
 			// Find unique destinations
 			List<string> cities = UniqueDestinations(routeArray);
@@ -100,12 +100,6 @@ namespace OceanicAirlines.Engine
                 }
 
 			}
-
-			// print nonzeros
-			//for (int i = 0; i < nonzeros.Count; i++)
-			//{
-			//	Console.WriteLine(nonzeros[i]);
-			//}
 
 			// remove 3 random edges
 			Random rnd = new Random();

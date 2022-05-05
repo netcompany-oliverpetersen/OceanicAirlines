@@ -25,7 +25,7 @@ namespace OceanicAirlines.Controllers
             using (var context = new DbOaDk1Context())
             {
                 var procedures = context.GetProcedures();
-                results = await procedures.GetRoutePriceTableAsync(req.Height, req.Width, req.Length, req.Weight, req.Category, default);
+                results = await procedures.GetRoutePriceTableAsync(req.Height, req.Width, req.Length, req.Weight, req.Category);
             }
 
             foreach(var result in results)
@@ -35,15 +35,6 @@ namespace OceanicAirlines.Controllers
 
                return returnRoutes; 
         }
-        //TODO: Remove
-        [HttpGet(Name ="GetRoute")]
-        public async Task<IEnumerable<ApiRoute>> Get()
-        {
-            TelstarService ts = new TelstarService();
-            return await ts.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
-
-        }
-
     }
 
 }
