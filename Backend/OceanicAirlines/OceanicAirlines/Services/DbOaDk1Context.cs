@@ -212,6 +212,7 @@ namespace OceanicAirlines.Services
                     .IsUnicode(false);
             });
 
+            OnModelCreatingGeneratedProcedures(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 

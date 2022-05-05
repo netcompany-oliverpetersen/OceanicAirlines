@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OceanicAirlines.APIModels;
 using OceanicAirlines.Services;
 using System.Collections;
+using Microsoft.EntityFrameworkCore;
 
 namespace OceanicAirlines.Controllers
 {
@@ -22,16 +23,19 @@ namespace OceanicAirlines.Controllers
         }
 
         [HttpPost(Name = "PostRoutes")]
-        public IEnumerable<ApiRoute> Post([FromBody]APIRouteRequest req)
+        public async Task<IEnumerable<ApiRoute>> Post([FromBody]APIRouteRequest req)
         {
-
-            return Enumerable.Range(1, 5).Select(index => new ApiRoute(new Models.Route
+            List<ApiRoute> returnRoutes = new List<ApiRoute>();
+            List<Models.Route> routes = new List<Models.Route>();
+            using (var context = new DbOaDk1Context())
             {
-                StartPosId = 2,
-                EndPosId = 1,
-                DistanceInHours = (int)Random.Shared.NextInt64()
-            }))
-            .ToArray();
+                routes = context.Route.Include(route => route.EndPos).ToList();
+            }
+               foreach (var route in routes)
+            {
+                returnRoutes.Add(new ApiRoute(route));
+            }
+               return returnRoutes; 
         }
 
         [HttpGet(Name ="GetRoute")]
