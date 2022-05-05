@@ -17,8 +17,9 @@ namespace OceanicAirlines.Controllers
         }
 
         [HttpPost(Name = "PostRoutes")]
-        public IEnumerable<ApiRoute> Post()
+        public IEnumerable<ApiRoute> Post([FromBody]APIRouteRequest req)
         {
+            
             return Enumerable.Range(1, 5).Select(index => new ApiRoute(new Models.Route
             {
                 Start = "Slavekysten",
