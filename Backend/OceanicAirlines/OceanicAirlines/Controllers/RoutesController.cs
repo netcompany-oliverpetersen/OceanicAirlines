@@ -17,6 +17,10 @@ namespace OceanicAirlines.Controllers
             _logger = logger;
         }
 
+        public RoutesController()
+        {
+        }
+
         [HttpPost(Name = "PostRoutes")]
         public IEnumerable<ApiRoute> Post([FromBody]APIRouteRequest req)
         {
