@@ -6,8 +6,8 @@
         { }
             public ApiRoute(Models.Route model)
         {
-            this.Source = model.StartPosId;
-            this.Destination = model.EndPosId;
+            this.Source = model.StartPos.CityName;
+            this.Destination = model.EndPos.CityName;
             this.Price = 0;
             this.Time = (int)model.DistanceInHours;
         }
