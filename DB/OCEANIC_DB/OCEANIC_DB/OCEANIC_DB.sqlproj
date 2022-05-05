@@ -61,6 +61,7 @@
     <Folder Include="SECURITY\Schemas" />
     <Folder Include="DATA\Tables" />
     <Folder Include="DATA\Stored procedures" />
+    <Folder Include="DATA\Stored procedures\Templates" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="SECURITY\Schemas\DATA.sql" />
@@ -80,5 +81,7 @@
     <Build Include="DATA\Stored procedures\DATA.USP_LOAD__TRANSPORTTYPE.sql" />
     <Build Include="DATA\Stored procedures\DATA.USP_LOAD__TYPE.sql" />
     <Build Include="DATA\Stored procedures\DATA.USP_LOAD__USER.sql" />
+    <Build Include="DATA\Stored procedures\Templates\DATA.USP_LOAD__TEMPLATE_BOOKING.sql" />
+    <Build Include="DATA\Stored procedures\Templates\DATA.USP_LOAD__TEMPLATE_BOOKINGLINE.sql" />
   </ItemGroup>
 </Project>

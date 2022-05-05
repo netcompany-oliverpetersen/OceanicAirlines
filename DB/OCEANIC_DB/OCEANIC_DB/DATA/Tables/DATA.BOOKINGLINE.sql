@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [DATA].[BOOKINGLINE]
 (
-	[Id] INT IDENTITY(1,1) NOT NULL , 
+	[Id] INT NOT NULL , 
     [LineID] INT NOT NULL, 
     [SegmentID] INT NOT NULL, 
     [StartPosID] INT NOT NULL, 
