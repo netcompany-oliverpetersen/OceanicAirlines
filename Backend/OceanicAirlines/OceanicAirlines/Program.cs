@@ -10,7 +10,9 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 {
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
-           .AllowAnyHeader();
+           .SetIsOriginAllowed(origin => true)
+           .AllowAnyHeader()
+           .AllowCredentials();
 }));
 
 builder.Services.AddControllers();
