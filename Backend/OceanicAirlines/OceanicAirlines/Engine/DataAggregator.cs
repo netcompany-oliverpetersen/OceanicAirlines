@@ -41,7 +41,9 @@ namespace OceanicAirlines.Engine
 			if (Scramble)
             {
 				ScrambleTable(adjTable);
-            }
+				Console.Write("\n");
+				Print2DArray(adjTable);
+			}
 
 			return Tuple.Create(adjTable, cities);
 		}
@@ -71,10 +73,37 @@ namespace OceanicAirlines.Engine
 			}
 		}
 
-		public static void ScrambleTable<T>(T[,] matrix)
+		public static void ScrambleTable(int[,] matrix)
         {
-			// do something
-        }
+			List<Tuple<int, int>> nonzeros = new List<Tuple<int, int>>();
+
+			// find nonzero elements
+			for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+				for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+					if (matrix[i, j] != 0)
+                    {
+						nonzeros.Add(new Tuple<int, int>(i, j));
+                    }
+                }
+
+			}
+
+			// print nonzeros
+			//for (int i = 0; i < nonzeros.Count; i++)
+			//{
+			//	Console.WriteLine(nonzeros[i]);
+			//}
+
+			// remove 3 random edges
+			Random rnd = new Random();
+			for (int i = 0; i < 3; i++) { 
+				int removeIndex = rnd.Next(1, nonzeros.Count);
+				matrix[nonzeros[removeIndex].Item1, nonzeros[removeIndex].Item2] = 0;
+				matrix[nonzeros[removeIndex].Item2, nonzeros[removeIndex].Item1] = 0;  // mirror
+			}
+		}
 
 		public static void fillTable(int[,] matrix, ApiRoute[] routeArray, List<string> cities, bool ForTime)
 		{
