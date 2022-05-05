@@ -20,11 +20,11 @@ namespace OceanicAirlines.Controllers
         [HttpPost(Name = "PostRoutes")]
         public IEnumerable<ApiRoute> Post([FromBody]APIRouteRequest req)
         {
-            
+
             return Enumerable.Range(1, 5).Select(index => new ApiRoute(new Models.Route
             {
-                StartPosId = "Slavekysten",
-                EndPosId = "Cairo",
+                StartPosId = 2,
+                EndPosId = 1,
                 DistanceInHours = (int)Random.Shared.NextInt64()
             }))
             .ToArray();
