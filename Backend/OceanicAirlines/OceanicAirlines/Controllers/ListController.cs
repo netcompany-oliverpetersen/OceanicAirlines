@@ -21,19 +21,27 @@ namespace OceanicAirlines.Controllers
         [HttpGet(Name = "GetList")]  
         public string Get()
         {
-            // get data matrix
+            // init vars
             DataAggregator DataAggregator = new DataAggregator();
-            (int[,] matrix, List<string> cities) = DataAggregator.Aggregate();
+            ShortestPath ShortestPath = new ShortestPath();
+            string StartCity = "A";  // decide the city you are starting from
 
-            // find shortest path	
-			ShortestPath ShortestPath = new ShortestPath();
-            int source = cities.IndexOf("A");  // decide the city you are starting from
-            ShortestPath.compute(matrix, source, cities);
+            // find fastest path	
+            (int[,] fastMatrix, List<string> fastCities) = DataAggregator.Aggregate(true, false);
+            int fastSource = fastCities.IndexOf(StartCity); 
+            ShortestPath.compute(fastMatrix, fastSource, fastCities);
 
             // find cheapest path
-            // find X alternative paths
-            // send them back
+            (int[,] cheapMatrix, List<string> cheapCities) = DataAggregator.Aggregate(false, false);
+            int cheapSource = cheapCities.IndexOf(StartCity);
+            ShortestPath.compute(cheapMatrix, cheapSource, cheapCities);
 
+            // find X alternative paths
+            (int[,] altMatrix, List<string> altCities) = DataAggregator.Aggregate(true, true);
+            int altSource = fastCities.IndexOf(StartCity);
+            ShortestPath.compute(altMatrix, altSource, altCities);
+
+            // send list back to requester
             return "abc";
         }
 
