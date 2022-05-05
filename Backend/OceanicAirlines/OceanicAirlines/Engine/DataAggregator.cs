@@ -19,7 +19,7 @@ namespace OceanicAirlines.Engine
 			return myArray;
 		}
 
-		public string DataAggregate()
+		public int[,] Aggregate()
 		{
 
 			ApiRoute[] routeArray = getRoutes();
