@@ -107,6 +107,7 @@
 										List<string> cities)
 		{
 			int nVertices = distances.Length;
+			Console.Write("\n");
 			Console.Write("City\t Distance\tPath");
 
 			for (int vertexIndex = 0;
@@ -121,6 +122,8 @@
 					printPath(vertexIndex, parents, cities);
 				}
 			}
+
+			Console.WriteLine();
 		}
 
 		// Function to print shortest path

@@ -20,6 +20,7 @@ namespace OceanicAirlines.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<City> Get()
         {
+
             List<City> cities = new List<City>();
             using (var context = new DbOaDk1Context())
             {
