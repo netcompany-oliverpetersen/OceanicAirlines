@@ -28,7 +28,6 @@ namespace OceanicAirlines.Controllers
 
             string StartCity = req.Source;  // decide the city you are starting from
             string EndCity = req.Destination;
-
             APIRouteRequest request = new APIRouteRequest(req.Category, (int)req.Height, (int)req.Width, (int)req.Length, (int)req.Weight);
 
             // find fastest path	

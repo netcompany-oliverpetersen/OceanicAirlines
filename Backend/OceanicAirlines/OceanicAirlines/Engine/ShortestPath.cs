@@ -12,11 +12,11 @@ namespace OceanicAirlines.Engine
 		// using adjacency matrix
 		// representation
 		public ListElement Compute(
-											int[,] TimeMatrix,
-											int[,] PriceMatrix,
-											List<string> cities,
-											int startVertex,
-											int stopVertex)
+									int[,] TimeMatrix,
+									int[,] PriceMatrix,
+									List<string> cities,
+									int startVertex,
+									int stopVertex)
 		{
 			int nVertices = TimeMatrix.GetLength(0);
 
@@ -104,8 +104,8 @@ namespace OceanicAirlines.Engine
 
 			List<string> pathString = new List<string>();
 			savePath(stopVertex, parents, cities, pathString);
-			(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix);
-			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], 99, string.Join(", ", pathString.ToArray()));
+			(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix, cities);
+			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], price, string.Join(", ", pathString.ToArray()));
 		}
 
 		// A utility function to print
@@ -171,9 +171,22 @@ namespace OceanicAirlines.Engine
 
 		private Tuple<int, int> calculateTimeAndPrice(List<string> pathString,
 			int[,] TimeMatrix,
-			int[,] PriceMatrix)
+			int[,] PriceMatrix,
+			List<string> cities)
 		{
-			return Tuple.Create(5, 8);
+			int tmpFirstEdge;
+			int tmpSecondEdge;
+			int timeSum = 0;
+			int priceSum = 0;
+
+			for (int i = 0; i < pathString.Count - 1; i++)
+            {
+				tmpFirstEdge =  cities.IndexOf(pathString[i]);
+				tmpSecondEdge =  cities.IndexOf(pathString[i+1]);
+				timeSum += TimeMatrix[tmpFirstEdge, tmpSecondEdge];
+				priceSum += PriceMatrix[tmpFirstEdge, tmpSecondEdge];
+			}
+			return Tuple.Create(timeSum, priceSum);
 		}
 	}
 }
