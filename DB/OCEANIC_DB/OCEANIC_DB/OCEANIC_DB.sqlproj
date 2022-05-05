@@ -73,5 +73,12 @@
     <Build Include="DATA\Tables\DATA.TRANSPORTTYPE.sql" />
     <Build Include="DATA\Tables\DATA.TYPE.sql" />
     <Build Include="DATA\Tables\DATA.USER.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__CITY.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__CUSTOMER.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__PARCEL.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__ROUTE.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__TRANSPORTTYPE.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__TYPE.sql" />
+    <Build Include="DATA\Stored procedures\DATA.USP_LOAD__USER.sql" />
   </ItemGroup>
 </Project>
