@@ -23,15 +23,13 @@ namespace OceanicAirlines.Controllers
         {
             // get data matrix
             DataAggregator DataAggregator = new DataAggregator();
-            int[,] matrix = DataAggregator.Aggregate();
+            (int[,] matrix, List<string> cities) = DataAggregator.Aggregate();
 
-            // find shortest path
-            			// decide source
-			int source = cities.IndexOf("A");
-
-		
+            // find shortest path	
 			ShortestPath ShortestPath = new ShortestPath();
+            int source = cities.IndexOf("A");  // decide the city you are starting from
             ShortestPath.compute(matrix, source, cities);
+
             // find cheapest path
             // find X alternative paths
             // send them back

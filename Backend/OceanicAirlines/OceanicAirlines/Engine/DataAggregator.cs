@@ -19,7 +19,7 @@ namespace OceanicAirlines.Engine
 			return myArray;
 		}
 
-		public int[,] Aggregate()
+		public Tuple<int[,], List<string>> Aggregate()
 		{
 
 			ApiRoute[] routeArray = getRoutes();
@@ -40,13 +40,13 @@ namespace OceanicAirlines.Engine
 			// compare adjacency tables and find the lowest value at each location
 
 			// decide source
-			int source = cities.IndexOf("A");
+			//int source = cities.IndexOf("A");
 
 			// calculate dist		
-			ShortestPath t = new ShortestPath();
-			t.compute(adjTable, source, cities);
+			//ShortestPath t = new ShortestPath();
+			//t.compute(adjTable, source, cities);
 
-			return "this works";
+			return Tuple.Create(adjTable, cities);
 		}
 
 		List<string> UniqueDestinations(ApiRoute[] routeArray)
