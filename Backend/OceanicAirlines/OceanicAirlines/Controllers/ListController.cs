@@ -24,7 +24,7 @@ namespace OceanicAirlines.Controllers
             // init vars
             DataAggregator DataAggregator = new DataAggregator();
             ShortestPath ShortestPath = new ShortestPath();
-            string StartCity = "A";  // decide the city you are starting from
+            string StartCity = "Dragebjerget";  // decide the city you are starting from
 
             // find fastest path	
             (int[,] fastMatrix, List<string> fastCities) = DataAggregator.Aggregate(true, false);
