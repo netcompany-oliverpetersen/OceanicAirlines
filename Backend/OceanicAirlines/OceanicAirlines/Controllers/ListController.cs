@@ -18,8 +18,8 @@ namespace OceanicAirlines.Controllers
             _logger = logger;
         }
 
-        [HttpPost(Name = "PostList")]  
-        public string Post([FromBody]string req)
+        [HttpGet(Name = "GetList")]  
+        public string Get()
         {
             // get data matrix
             DataAggregator DataAggregator = new DataAggregator();
