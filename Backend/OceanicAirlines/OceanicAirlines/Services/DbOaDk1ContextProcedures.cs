@@ -40,7 +40,7 @@ namespace OceanicAirlines.Services
 
     public interface IDbOaDk1ContextProcedures
     {
-        Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(decimal? Height, decimal? Width, decimal? Length, decimal? Weight, string Type, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, CancellationToken cancellationToken = default);
     }
 
     public partial class DbOaDk1ContextProcedures : IDbOaDk1ContextProcedures
@@ -52,7 +52,7 @@ namespace OceanicAirlines.Services
             _context = context;
         }
 
-        public virtual async Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(decimal? Height, decimal? Width, decimal? Length, decimal? Weight, string Type, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -102,7 +102,7 @@ namespace OceanicAirlines.Services
             };
             var _ = await _context.SqlQueryAsync<GetRoutePriceTableResult>("EXEC @returnValue = [DATA].[GetRoutePriceTable] @Height, @Width, @Length, @Weight, @Type", sqlParameters, cancellationToken);
 
-            returnValue?.SetValue(parameterreturnValue.Value);
+            //returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;
         }
