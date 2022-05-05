@@ -1,0 +1,19 @@
+﻿CREATE PROCEDURE [DATA].[USP_LOAD__PARCEL]
+AS
+
+TRUNCATE TABLE DATA.PARCEL
+
+INSERT INTO DATA.PARCEL (WeightInKg, HeightInCm, WidthInCm, LengthInCm, Price)
+
+VALUES
+
+( 0.99, 25.0, 25.0, 25.0, 40.0),
+( 0.99, 40.0, 40.0, 40.0, 48.0),
+( 0.99, 200.0, 200.0, 200.0, 80.0),
+( 5.0, 25.0, 25.0, 25.0, 60.0),
+( 5.0, 40.0, 40.0, 40.0, 68.0),
+( 5.0, 200.0, 200.0, 200.0, 100.0),
+( 20.0, 25.0, 25.0, 25.0, 80.0),
+( 20.0, 40.0, 40.0, 40.0, 88.0),
+( 20.0, 200.0, 200.0, 200.0, 120.0)
+RETURN 0;

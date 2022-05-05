@@ -1,0 +1,9 @@
+﻿CREATE TABLE [DATA].[TYPE]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL, 
+    [Type] VARCHAR(255) NULL, 
+    [Factor] DECIMAL(10, 2) NULL, 
+    [Active] BIT NOT NULL 
+
+CONSTRAINT [PK_TYPE] PRIMARY KEY (Id)
+)

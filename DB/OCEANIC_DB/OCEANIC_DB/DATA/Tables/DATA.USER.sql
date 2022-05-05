@@ -1,0 +1,11 @@
+﻿CREATE TABLE [DATA].[USER]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL, 
+    [FirstName]NVARCHAR(MAX) NULL, 
+    [LastName] NVARCHAR(MAX) NULL, 
+    [Mail] NVARCHAR(255) NOT NULL, 
+    [Password] CHAR(64) NOT NULL, 
+    [Type] VARCHAR(50) NULL 
+
+CONSTRAINT [PK_USER] PRIMARY KEY (Id)
+)
