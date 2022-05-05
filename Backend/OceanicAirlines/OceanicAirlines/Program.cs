@@ -24,6 +24,7 @@ builder.Services.AddDbContext<DbOaDk1Context>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.UseSqlServer();
+    options.UseLazyLoadingProxies(true);
 });
 
 

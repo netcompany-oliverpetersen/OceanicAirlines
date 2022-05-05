@@ -48,6 +48,10 @@
       {
          "Name": "[DATA].[USER]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[DATA].[GetRoutePriceTable]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "dbs-oa-dk1.db-oa-dk1.dbo",
