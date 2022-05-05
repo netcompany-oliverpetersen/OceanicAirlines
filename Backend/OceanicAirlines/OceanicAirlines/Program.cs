@@ -11,8 +11,7 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(builder =>
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
            .SetIsOriginAllowed(origin => true)
-           .AllowAnyHeader()
-           .AllowCredentials();
+           .AllowAnyHeader();
 }));
 
 builder.Services.AddControllers();
@@ -37,7 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
