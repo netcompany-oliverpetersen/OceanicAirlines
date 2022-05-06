@@ -34,16 +34,12 @@ namespace OceanicAirlines.Controllers
             User user = new User();
             using (var context = new DbOaDk1Context())
             {
-                user = context.User.Where(u => u.Mail == req.Mail && u.Password == req.Password).FirstOrDefault(defaultValue: new User());
+                context.User.Add(user);
+
+                context.SaveChanges();
             }
-            if (user.Mail == null || user.Mail == "")
-            {
-                return new JsonResult(418);
-            }
-            else
-            {
-                return new JsonResult(200, user);
-            }
+
+                return new JsonResult(200);
         }
     }
 }
