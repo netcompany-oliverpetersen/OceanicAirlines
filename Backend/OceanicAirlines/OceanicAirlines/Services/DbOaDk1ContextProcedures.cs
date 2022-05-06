@@ -40,7 +40,8 @@ namespace OceanicAirlines.Services
 
     public interface IDbOaDk1ContextProcedures
     {
-        Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, CancellationToken cancellationToken = default);
+        Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> USP_INSERTBOOKINGSAsync(string FullRoute, string Type, decimal? Weight, decimal? Length, decimal? Width, decimal? Height, string TotalPrices, decimal? TotalTime, string CustomerFirstName, string CustomerLastName, string CustomerAddress, string CustomerZipCode, string CustomerCity, string CustomerCountry, string UserEmail, CancellationToken cancellationToken = default);
     }
 
     public partial class DbOaDk1ContextProcedures : IDbOaDk1ContextProcedures
@@ -52,7 +53,7 @@ namespace OceanicAirlines.Services
             _context = context;
         }
 
-        public virtual async Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GetRoutePriceTableResult>> GetRoutePriceTableAsync(double? Height, double? Width, double? Length, double? Weight, string Type, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -101,6 +102,136 @@ namespace OceanicAirlines.Services
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<GetRoutePriceTableResult>("EXEC @returnValue = [DATA].[GetRoutePriceTable] @Height, @Width, @Length, @Weight, @Type", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> USP_INSERTBOOKINGSAsync(string FullRoute, string Type, decimal? Weight, decimal? Length, decimal? Width, decimal? Height, string TotalPrices, decimal? TotalTime, string CustomerFirstName, string CustomerLastName, string CustomerAddress, string CustomerZipCode, string CustomerCity, string CustomerCountry, string UserEmail, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "FullRoute",
+                    Size = -1,
+                    Value = FullRoute ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Type",
+                    Size = 255,
+                    Value = Type ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Weight",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = Weight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Length",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = Length ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Width",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = Width ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Height",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = Height ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TotalPrices",
+                    Size = -1,
+                    Value = TotalPrices ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TotalTime",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = TotalTime ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerFirstName",
+                    Size = -1,
+                    Value = CustomerFirstName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerLastName",
+                    Size = -1,
+                    Value = CustomerLastName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerAddress",
+                    Size = 510,
+                    Value = CustomerAddress ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerZipCode",
+                    Size = 12,
+                    Value = CustomerZipCode ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerCity",
+                    Size = 510,
+                    Value = CustomerCity ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerCountry",
+                    Size = 255,
+                    Value = CustomerCountry ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "UserEmail",
+                    Size = 510,
+                    Value = UserEmail ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [DATA].[USP_INSERTBOOKINGS] @FullRoute, @Type, @Weight, @Length, @Width, @Height, @TotalPrices, @TotalTime, @CustomerFirstName, @CustomerLastName, @CustomerAddress, @CustomerZipCode, @CustomerCity, @CustomerCountry, @UserEmail", sqlParameters, cancellationToken);
 
             //returnValue?.SetValue(parameterreturnValue.Value);
 

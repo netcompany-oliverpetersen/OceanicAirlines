@@ -10,7 +10,7 @@ namespace OceanicAirlines.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShippingController
+    public class ShippingController : ControllerBase
     {
         [HttpGet(Name = "GetShipping")]
         public async Task<IEnumerable<ApiBookingHistory>> Get()

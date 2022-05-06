@@ -9,7 +9,7 @@ namespace OceanicAirlines.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TrackingController
+    public class TrackingController : ControllerBase
     {
 
         [HttpGet(Name = "GetTracking")]
