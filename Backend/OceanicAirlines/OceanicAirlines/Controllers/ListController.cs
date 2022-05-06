@@ -48,8 +48,12 @@ namespace OceanicAirlines.Controllers
                 (int[,] altTimeMatrix, int[,] altPriceMatrix, List<string> altCities) = DataAggregator.Aggregate(true, request);
                 int altSource = altCities.IndexOf(StartCity);
                 int altSink = altCities.IndexOf(EndCity);
-                ListElement altElem = ShortestPath.Compute(altTimeMatrix, altPriceMatrix, altCities, altSource, altSink, false);
-                returnList.Add(altElem);
+                try
+                {
+                    ListElement altElem = ShortestPath.Compute(altTimeMatrix, altPriceMatrix, altCities, altSource, altSink, false);
+                    returnList.Add(altElem);
+                } 
+                catch (IndexOutOfRangeException) { Console.WriteLine("Failed alternative route."); }
             }
 
             //Console.WriteLine("Test");
