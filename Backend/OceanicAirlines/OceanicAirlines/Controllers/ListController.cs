@@ -43,7 +43,7 @@ namespace OceanicAirlines.Controllers
 
 
             // find X alternative paths
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 (int[,] altTimeMatrix, int[,] altPriceMatrix, List<string> altCities) = DataAggregator.Aggregate(true, request);
                 int altSource = altCities.IndexOf(StartCity);
