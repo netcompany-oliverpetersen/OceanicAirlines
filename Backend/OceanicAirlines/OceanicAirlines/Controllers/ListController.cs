@@ -43,7 +43,7 @@ namespace OceanicAirlines.Controllers
 
 
             // find X alternative paths
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 (int[,] altTimeMatrix, int[,] altPriceMatrix, List<string> altCities) = DataAggregator.Aggregate(true, request);
                 int altSource = altCities.IndexOf(StartCity);
@@ -57,7 +57,7 @@ namespace OceanicAirlines.Controllers
             }
 
             // remove duplicates
-            returnList.GroupBy(elem => new { elem.Time, elem.Price, elem.Path }).Select(group => group.First());
+            returnList = returnList.GroupBy(elem => new { elem.Time, elem.Price, elem.Path }).Select(group => group.First()).ToList();
             return returnList;
         }
 
