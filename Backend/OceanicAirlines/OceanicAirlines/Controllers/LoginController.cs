@@ -9,7 +9,7 @@ namespace OceanicAirlines.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController
+    public class LoginController : ControllerBase
     {
         [HttpPost(Name = "PostUser")]
         public IActionResult Post([FromBody] ApiUserRequest req)
