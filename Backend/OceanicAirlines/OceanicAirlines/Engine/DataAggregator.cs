@@ -10,28 +10,46 @@ namespace OceanicAirlines.Engine
 
 		public List<ApiRoute> getRoutes(APIRouteRequest request)
 		{
+			List<ApiRoute> returnList = new List<ApiRoute>();
 
-			//ApiRoute AB = new ApiRoute("A", "B", 1, 10);
-			//ApiRoute AC = new ApiRoute("A", "C", 5, 10);
-			//ApiRoute BD = new ApiRoute("B", "D", 3, 10);
-			//ApiRoute CD = new ApiRoute("C", "D", 4, 10);
-			//ApiRoute AE = new ApiRoute("A", "E", 2, 7);
-			//ApiRoute ED = new ApiRoute("E", "D", 2, 7);
-			//ApiRoute[] myArray = { AB, AC, BD, CD, AE, ED };
+            //ApiRoute AB = new ApiRoute("A", "B", 1, 10);
+            //ApiRoute AC = new ApiRoute("A", "C", 5, 10);
+            //ApiRoute BD = new ApiRoute("B", "D", 3, 10);
+            //ApiRoute CD = new ApiRoute("C", "D", 4, 10);
+            //ApiRoute AE = new ApiRoute("A", "E", 2, 7);
+            //ApiRoute ED = new ApiRoute("E", "D", 2, 7);
+            //ApiRoute[] myArray = { AB, AC, BD, CD, AE, ED };
 
-			RoutesController RC = new RoutesController();
-			Task<IEnumerable<ApiRoute>> task = RC.Post(request);
-			return task.Result.ToList();
+            RoutesController RC = new RoutesController();
+            Task<IEnumerable<ApiRoute>> task = RC.Post(request);
+			List<ApiRoute> OAList = task.Result.ToList();
 
-			//EastIndiaTrading EIT = new EastIndiaTrading();
-			//Task<IEnumerable<ApiRoute>> task = EIT.GetApiRoutes(new APIRouteRequest { Category = "test", Height = 0, Length = 0, Weight = 0, Width = 0 });
-			//return task.Result.ToList();
+			request.Category = request.Category.ToLower();
+			EastIndiaTrading EIT = new EastIndiaTrading();
+			Task<IEnumerable<ApiRoute>> task2 = EIT.GetApiRoutes(request);
+			List<ApiRoute> EICList = task2.Result.ToList();
+			returnList = OAList.Concat(EICList).ToList();
 
+			return returnList;
 		}
 
 		public Tuple<int[,], int[,], List<string>> Aggregate(bool Scramble, APIRouteRequest request)
 		{
 			List<ApiRoute> routeArray = getRoutes(request);
+			
+			// find routes that are the same and delete the slowest
+			for (int i = routeArray.Count -1; i > -1; i--)
+            {
+				for (int j = routeArray.Count-1; j > -1; j--)
+				{
+					if (routeArray[i].Source == routeArray[j].Source &&
+						routeArray[i].Destination == routeArray[j].Destination &&
+						routeArray[i].Time > routeArray[j].Time)
+                    {
+						routeArray.RemoveAt(i);
+					}
+                }
+			}
 
 			// Find unique destinations
 			List<string> cities = UniqueDestinations(routeArray);

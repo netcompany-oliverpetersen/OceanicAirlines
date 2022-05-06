@@ -15,12 +15,17 @@ namespace OceanicAirlines.Services
         new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             string json = JsonConvert.SerializeObject(req);
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("https://wa-eat-dk1.azurewebsites.net/api/route", httpContent);
+            HttpResponseMessage response = await client.PostAsync("https://wa-eit-dk1.azurewebsites.net/api/route", httpContent);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
-            var responses = JsonConvert.DeserializeObject<List<ApiRoute>>(responseBody);
-            Console.Write(responseBody);
-            return responses;
+
+            var responses = JsonConvert.DeserializeObject<List<ApiRouteEIC>>(responseBody);
+            var returnObj = new List<ApiRoute>();
+            foreach (var route in responses)
+            {
+                returnObj.Add(new ApiRoute(route.Source, route.Destination, route.Time, (int)route.Price));
+            }
+            return returnObj;
         }
     }
 }
