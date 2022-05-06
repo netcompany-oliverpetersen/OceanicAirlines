@@ -52,6 +52,10 @@
       {
          "Name": "[DATA].[GetRoutePriceTable]",
          "ObjectType": 1
+      },
+      {
+         "Name": "[DATA].[USP_INSERTBOOKINGS]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "dbs-oa-dk1.db-oa-dk1.dbo",
