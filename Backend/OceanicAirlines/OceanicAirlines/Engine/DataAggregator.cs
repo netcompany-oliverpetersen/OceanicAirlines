@@ -121,7 +121,7 @@ namespace OceanicAirlines.Engine
 
 			// remove 3 random edges
 			Random rnd = new Random();
-			for (int i = 0; i < 3; i++) { 
+			for (int i = 0; i < 8; i++) { 
 				int removeIndex = rnd.Next(1, nonzeros.Count);
 				matrix[nonzeros[removeIndex].Item1, nonzeros[removeIndex].Item2] = 0;
 				matrix[nonzeros[removeIndex].Item2, nonzeros[removeIndex].Item1] = 0;  // mirror
