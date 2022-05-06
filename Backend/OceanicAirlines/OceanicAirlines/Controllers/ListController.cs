@@ -25,31 +25,37 @@ namespace OceanicAirlines.Controllers
             // init vars
             DataAggregator DataAggregator = new DataAggregator();
             ShortestPath ShortestPath = new ShortestPath();
+            List<ListElement> returnList = new List<ListElement>();
 
             string StartCity = req.Source;  // decide the city you are starting from
             string EndCity = req.Destination;
             APIRouteRequest request = new APIRouteRequest(req.Category, (int)req.Height, (int)req.Width, (int)req.Length, (int)req.Weight);
 
             // find fastest path	
-            (int[,] fastTimeMatrix, int[,] fastPriceMatrix, List<string> fastCities) = DataAggregator.Aggregate(false, request);
+            (int[,] TimeMatrix, int[,] PriceMatrix, List<string> fastCities) = DataAggregator.Aggregate(false, request);
             int fastSource = fastCities.IndexOf(StartCity);
             int fastSink = fastCities.IndexOf(EndCity);
-            ListElement shortestElem = ShortestPath.Compute(fastTimeMatrix, fastPriceMatrix, fastCities, fastSource, fastSink);
+            ListElement FastestElem = ShortestPath.Compute(TimeMatrix, PriceMatrix, fastCities, fastSource, fastSink, false);
+            // find cheapest path
+            ListElement CheapestElem = ShortestPath.Compute(PriceMatrix, TimeMatrix, fastCities, fastSource, fastSink, true);
+            returnList.Add(FastestElem);
+            returnList.Add(CheapestElem);
 
-            //// find cheapest path
-            //(int[,] cheapMatrix, List<string> cheapCities) = DataAggregator.Aggregate(false, false);
-            //int cheapSource = cheapCities.IndexOf(StartCity);
-            //ShortestPath.compute(cheapMatrix, cheapSource, cheapCities);
 
-            //// find X alternative paths
-            //(int[,] altMatrix, List<string> altCities) = DataAggregator.Aggregate(true, true);
-            //int altSource = fastCities.IndexOf(StartCity);
-            //ShortestPath.compute(altMatrix, altSource, altCities);
+            // find X alternative paths
+            for (int i = 0; i < 4; i++)
+            {
+                (int[,] altTimeMatrix, int[,] altPriceMatrix, List<string> altCities) = DataAggregator.Aggregate(true, request);
+                int altSource = altCities.IndexOf(StartCity);
+                int altSink = altCities.IndexOf(EndCity);
+                ListElement altElem = ShortestPath.Compute(altTimeMatrix, altPriceMatrix, altCities, altSource, altSink, false);
+                returnList.Add(altElem);
+            }
 
-            // send list back to requester
-            List<ListElement> returnList = new List<ListElement>();
-            //returnList.Add(new ListElement(req.Source, "Aarhus", 4, 5, "Ry,Skanderborg,Aarhus"));
-            returnList.Add(shortestElem);
+            //Console.WriteLine("Test");
+            //Console.WriteLine(FastestElem == CheapestElem);
+
+            returnList = returnList.Distinct().ToList(); // doesn't work :(
             return returnList;
         }
 

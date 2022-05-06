@@ -16,7 +16,8 @@ namespace OceanicAirlines.Engine
 									int[,] PriceMatrix,
 									List<string> cities,
 									int startVertex,
-									int stopVertex)
+									int stopVertex,
+									bool cheapest)
 		{
 			int nVertices = TimeMatrix.GetLength(0);
 
@@ -104,8 +105,15 @@ namespace OceanicAirlines.Engine
 
 			List<string> pathString = new List<string>();
 			savePath(stopVertex, parents, cities, pathString);
-			(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix, cities);
-			return new ListElement(cities[startVertex], cities[stopVertex], shortestDistances[stopVertex], price, string.Join(", ", pathString.ToArray()));
+			if (cheapest == false) {
+				(int time, int price) = calculateTimeAndPrice(pathString, TimeMatrix, PriceMatrix, cities);
+				return new ListElement(cities[startVertex], cities[stopVertex], time, price, string.Join(", ", pathString.ToArray()));
+			} else
+            {
+				(int time, int price) = calculateTimeAndPrice(pathString, PriceMatrix, TimeMatrix, cities);
+				return new ListElement(cities[startVertex], cities[stopVertex], time, price, string.Join(", ", pathString.ToArray()));
+			}
+
 		}
 
 		// A utility function to print
