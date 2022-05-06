@@ -1,4 +1,6 @@
-﻿namespace OceanicAirlines.APIModels
+﻿using System;
+
+namespace OceanicAirlines.APIModels
 {
     public class ListElement
     {
@@ -11,11 +13,6 @@
             this.Path = path;
 
          }
-
-        public override bool Equals(Object obj)
-        {
-            return (obj is ListElement) && String.Equals(((ListElement)obj).Path, Path);
-        }
         public string Source { get; set; }
         public string Destination { get; set; }
         public int Time { get; set; }

@@ -56,10 +56,8 @@ namespace OceanicAirlines.Controllers
                 catch (IndexOutOfRangeException) { Console.WriteLine("Failed alternative route."); }
             }
 
-            //Console.WriteLine("Test");
-            //Console.WriteLine(FastestElem == CheapestElem);
-
-            returnList = returnList.Distinct().ToList(); // doesn't work :(
+            // remove duplicates
+            returnList.GroupBy(elem => new { elem.Time, elem.Price, elem.Path }).Select(group => group.First());
             return returnList;
         }
 
